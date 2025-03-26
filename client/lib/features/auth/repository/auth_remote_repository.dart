@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_remote_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 // ignore: deprecated_member_use_from_same_package
 AuthRemoteRepository authRemoteRepository(AuthRemoteRepositoryRef ref) {
   return AuthRemoteRepository();
@@ -64,6 +64,28 @@ class AuthRemoteRepository {
       return Right(
           UserModel.fromMap(user['user']).copyWith(token: user['token']));
     } catch (e) {
+      return Left(AppFailure(e.toString()));
+    }
+  }
+
+  Future<Either<AppFailure, UserModel>> getCurrentUserData(
+      {required String token}) async {
+    try {
+      final response = await http.get(
+          Uri.parse("${ServerConstant.serverUrl}/auth/"),
+          headers: {'Content-Type': 'application/json', 'x-auth-token': token});
+      print("API Response Status Code: ${response.statusCode}");
+      print("API Response Body: ${response.body}");
+
+      final user = jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (response.statusCode != 200) {
+        return Left(AppFailure(user['detail']));
+      }
+
+      return Right(UserModel.fromMap(user).copyWith(token: token));
+    } catch (e) {
+      print("API Error: $e");
       return Left(AppFailure(e.toString()));
     }
   }

@@ -3,8 +3,9 @@ import 'package:client/core/utils.dart';
 import 'package:client/core/widgets/loader.dart';
 import 'package:client/features/auth/view/pages/sign_up.dart';
 import 'package:client/features/auth/view/widgets/auth_gradient_button.dart';
-import 'package:client/features/auth/view/widgets/custom_text_field.dart';
+import 'package:client/core/widgets/custom_text_field.dart';
 import 'package:client/features/auth/viewmodel/auth_viewmodel.dart';
+import 'package:client/features/home/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +24,10 @@ class SignInPage extends ConsumerWidget {
       next?.when(
           data: (data) {
             showSnackBar(context, data.toString());
-            //todo: navigate to homepage
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (_) => false);
           },
           error: (error, st) {
             showSnackBar(context, error.toString());

@@ -14,5 +14,8 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
           contentPadding: EdgeInsets.all(24),
           focusedBorder: _border(Pallete.gradient2),
-          enabledBorder: _border(Pallete.borderColor)));
+          enabledBorder: _border(Pallete.borderColor)),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Pallete.backgroundColor),
+      appBarTheme: AppBarTheme(centerTitle: true));
 }

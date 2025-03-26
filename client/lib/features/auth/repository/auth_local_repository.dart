@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,13 +18,14 @@ class AuthLocalRepository {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  void setToken(String? token) {
+  Future<void> setToken(String? token) async {
     if (token != null) {
       _sharedPreferences.setString("x-auth-token", token);
     }
   }
 
   String? getToken() {
+    print(_sharedPreferences.getString("x-auth-token"));
     return _sharedPreferences.getString("x-auth-token");
   }
 }

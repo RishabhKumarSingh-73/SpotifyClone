@@ -1,6 +1,7 @@
 import uuid
 import bcrypt
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Header
+from middleware.token_authentication_middleware import auth_middleware
 from models.user import User
 from pydantic_schemas.create_user import CreateUser
 from fastapi import APIRouter
@@ -47,3 +48,12 @@ def login_user(user:LoginUser, db: Session= Depends(get_db)):
     }, "password_key")
     
     return {'token':token,'user':user_db}
+
+@router.get('/')
+def get_user_data_using_token(db: Session= Depends(get_db), user_dict = Depends(auth_middleware)):
+    user = db.query(User).filter(User.id == user_dict['id']).first()
+
+    if not user:
+        raise HTTPException(404,"user not found")
+    
+    return user

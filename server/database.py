@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 
 
-DATABASE_URL = "postgresql://postgres:40029071@localhost:5432/musicapp"
+DATABASE_URL = "postgresql://postgres:40029071@localhost:5430/musicapp"
 
 engine = create_engine(DATABASE_URL)
 

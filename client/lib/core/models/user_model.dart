@@ -1,17 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
+import 'package:client/features/home/model/fav_song_model.dart';
+
 class UserModel {
   final String id;
   final String name;
   final String email;
   final String token;
+  final List<FavSongModel> favourites;
 
   UserModel(
     this.id,
     this.name,
     this.email,
     this.token,
+    this.favourites,
   );
 
   UserModel copyWith({
@@ -19,12 +25,14 @@ class UserModel {
     String? name,
     String? email,
     String? token,
+    List<FavSongModel>? favourites,
   }) {
     return UserModel(
       id ?? this.id,
       name ?? this.name,
       email ?? this.email,
       token ?? this.token,
+      favourites ?? this.favourites,
     );
   }
 
@@ -34,6 +42,7 @@ class UserModel {
       'name': name,
       'email': email,
       'token': token,
+      'favourites': favourites.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -43,6 +52,11 @@ class UserModel {
       map['name'] ?? '',
       map['email'] ?? '',
       map['token'] ?? '',
+      List<FavSongModel>.from(
+        (map['favourites'] ?? []).map<FavSongModel>(
+          (x) => FavSongModel.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 
@@ -53,7 +67,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, token: $token)';
+    return 'UserModel(id: $id, name: $name, email: $email, token: $token, favourites: $favourites)';
   }
 
   @override
@@ -63,11 +77,16 @@ class UserModel {
     return other.id == id &&
         other.name == name &&
         other.email == email &&
-        other.token == token;
+        other.token == token &&
+        listEquals(other.favourites, favourites);
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ email.hashCode ^ token.hashCode;
+    return id.hashCode ^
+        name.hashCode ^
+        email.hashCode ^
+        token.hashCode ^
+        favourites.hashCode;
   }
 }

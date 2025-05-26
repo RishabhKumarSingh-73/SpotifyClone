@@ -1,0 +1,2 @@
+E:/flutter_projects/SpotifyClone/client/android/app/.cxx/Debug/f5j4o4q5/armeabi-v7a/CMakeFiles/edit_cache.dir
+E:/flutter_projects/SpotifyClone/client/android/app/.cxx/Debug/f5j4o4q5/armeabi-v7a/CMakeFiles/rebuild_cache.dir

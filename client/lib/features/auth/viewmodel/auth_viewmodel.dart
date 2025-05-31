@@ -68,6 +68,11 @@ class AuthViewModel extends _$AuthViewModel {
     return state = AsyncValue.data(user);
   }
 
+  Future<void> logout() async {
+    await _authLocalRepository.unsetToken();
+    _currentUserNotifier.logout();
+  }
+
   Future<UserModel?> getData() async {
     state = AsyncValue.loading();
     final token = await _authLocalRepository.getToken();

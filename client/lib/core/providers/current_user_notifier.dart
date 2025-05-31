@@ -14,4 +14,8 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
     state = user;
     print("User Added: $user");
   }
+
+  void logout() {
+    state = null;
+  }
 }

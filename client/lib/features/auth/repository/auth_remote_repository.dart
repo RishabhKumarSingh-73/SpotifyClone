@@ -34,7 +34,7 @@ class AuthRemoteRepository {
               }));
       print(response.statusCode);
       if (response.statusCode != 201) {
-        return Left(AppFailure(response.body));
+        return Left(AppFailure(jsonDecode(response.body)['detail']));
       }
 
       final user = jsonDecode(response.body) as Map<String, dynamic>;
@@ -56,7 +56,7 @@ class AuthRemoteRepository {
           body: jsonEncode({'email': email, 'password': password}));
 
       if (response.statusCode != 200) {
-        return Left(AppFailure(response.body));
+        return Left(AppFailure(jsonDecode(response.body)['detail']));
       }
 
       final user = jsonDecode(response.body) as Map<String, dynamic>;

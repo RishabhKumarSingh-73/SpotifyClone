@@ -1,6 +1,6 @@
 import 'package:client/core/theme/app_pallete.dart';
-import 'package:client/core/utils.dart';
 import 'package:client/core/widgets/loader.dart';
+import 'package:client/core/widgets/snackbar.dart';
 import 'package:client/features/auth/view/pages/sign_in.dart';
 import 'package:client/features/auth/view/widgets/auth_gradient_button.dart';
 import 'package:client/core/widgets/custom_text_field.dart';
@@ -28,12 +28,12 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     ref.listen(authViewModelProvider, (_, next) {
       next?.when(
           data: (data) {
-            showSnackBar(context, data.toString());
+            showSnackBarCustom(data.toString(), context);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => SignInPage()));
           },
           error: (error, st) {
-            showSnackBar(context, error.toString());
+            showSnackBarCustom(error.toString(), context);
           },
           loading: () {});
     });

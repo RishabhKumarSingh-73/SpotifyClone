@@ -24,6 +24,10 @@ class AuthLocalRepository {
     }
   }
 
+  Future<void> unsetToken() async {
+    _sharedPreferences.remove("x-auth-token");
+  }
+
   String? getToken() {
     print(_sharedPreferences.getString("x-auth-token"));
     return _sharedPreferences.getString("x-auth-token");

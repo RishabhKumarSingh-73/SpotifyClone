@@ -1,6 +1,6 @@
 import 'package:client/core/theme/app_pallete.dart';
-import 'package:client/core/utils.dart';
 import 'package:client/core/widgets/loader.dart';
+import 'package:client/core/widgets/snackbar.dart';
 import 'package:client/features/auth/view/pages/sign_up.dart';
 import 'package:client/features/auth/view/widgets/auth_gradient_button.dart';
 import 'package:client/core/widgets/custom_text_field.dart';
@@ -23,14 +23,14 @@ class SignInPage extends ConsumerWidget {
     ref.listen(authViewModelProvider, (_, next) {
       next?.when(
           data: (data) {
-            showSnackBar(context, data.toString());
+            showSnackBarCustom(data.toString(), context);
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),
                 (_) => false);
           },
           error: (error, st) {
-            showSnackBar(context, error.toString());
+            showSnackBarCustom(error.toString(), context);
           },
           loading: () {});
     });
